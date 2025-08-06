@@ -1,0 +1,145 @@
+<h2>Welcome, {{ username }}</h2>
+
+<div class="button-group">
+  <button (click)="loadAllBooks()">Manage Books</button>
+  <button (click)="loadUsers()">Manage Users</button>
+  <button (click)="loadAuthors()">Manage Authors</button>
+  <button (click)="loadCategories()">Manage Categories</button>
+  <button (click)="loadIssuedBooks()">Issued Books</button>
+  <button (click)="loadOverdueBooks()">Overdue Books</button>
+</div>
+
+<!-- Manage Books Section -->
+<div *ngIf="currentSection === 'books'">
+  <h3>Manage Books</h3>
+  <button (click)="addBook()">Add Book</button>
+  <table>
+    <thead>
+      <tr>
+        <th>Book ID</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Category</th>
+        <th>Total Copies</th>
+        <th>Available Copies</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of books">
+        <td>{{ book.book_id }}</td>
+        <td>{{ book.title }}</td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.category }}</td>
+        <td>{{ book.totalCopies }}</td>
+        <td>{{ book.availableCopies }}</td>
+        <td>
+          <button (click)="editBook(book)">Edit</button>
+          <button (click)="deleteBook(book.book_id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Manage Users Section -->
+<div *ngIf="currentSection === 'users'">
+  <h3>Manage Users</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Contact</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.contact }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Manage Authors Section -->
+<div *ngIf="currentSection === 'authors'">
+  <h3>Manage Authors</h3>
+  <button (click)="addAuthor()">Add Author</button>
+  <table>
+    <thead>
+      <tr>
+        <th>Author Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let author of authors">
+        <td>{{ author }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Manage Categories Section -->
+<div *ngIf="currentSection === 'categories'">
+  <h3>Manage Categories</h3>
+  <button (click)="addCategory()">Add Category</button>
+  <table>
+    <thead>
+      <tr>
+        <th>Category Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let category of categories">
+        <td>{{ category }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Issued Books Section -->
+<div *ngIf="currentSection === 'issued'">
+  <h3>Issued Books</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>Username</th>
+        <th>Book Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let issue of issuedBooks">
+        <td>{{ issue.userId }}</td>
+        <td>{{ issue.username }}</td>
+        <td>{{ issue.bookName }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Overdue Books Section -->
+<div *ngIf="currentSection === 'overdue'">
+  <h3>Overdue Books</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>Username</th>
+        <th>Contact</th>
+        <th>Not Returned Book</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let overdue of overdueBooks">
+        <td>{{ overdue.userId }}</td>
+        <td>{{ overdue.username }}</td>
+        <td>{{ overdue.contact }}</td>
+        <td>{{ overdue.bookName }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

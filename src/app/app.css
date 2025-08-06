@@ -1,14 +1,9 @@
-.main-layout {
-  display: flex;
-  margin-top: 65px; /* header height */
+a {
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
-.content {
-  margin-left: 20px;
-  padding: 20px;
-  transition: margin-left 0.3s ease;
-}
-
-:host ::ng-deep app-sidemenu.open ~ .content {
-  margin-left: 220px; /* when menu is open */
+a:hover {
+  opacity: 0.8;
 }

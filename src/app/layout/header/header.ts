@@ -6,7 +6,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
   templateUrl: './header.html',
   styleUrls: ['./header.css']
 })
-export class HeaderComponent {
+export class Header {
   @Output() menuToggle = new EventEmitter<void>();
   toggleMenu() {
     this.menuToggle.emit();
