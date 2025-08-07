@@ -10,7 +10,6 @@ import { Sidemenu } from './layout/sidemenu/sidemenu';
   standalone: true,
   imports: [RouterOutlet, CommonModule, Header, Footer, Sidemenu, RouterModule],
   templateUrl: './app.html',
-  styleUrl: './app.css'
 })
 export class App {
   isMenuOpen = false;

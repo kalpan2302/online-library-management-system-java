@@ -12,7 +12,6 @@ import { AuthService } from '../../services/auth.service';
   selector: 'app-admin-dashboard',
   imports: [FormsModule, CommonModule],
   templateUrl: './admin-dashboard.html',
-  styleUrl: './admin-dashboard.css'
 })
 export class AdminDashboard {
   username: string = '';
