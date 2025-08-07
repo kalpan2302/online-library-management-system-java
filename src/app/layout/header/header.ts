@@ -4,7 +4,6 @@ import { Component, Output, EventEmitter } from '@angular/core';
   selector: 'app-header',
   standalone: true,
   templateUrl: './header.html',
-  styleUrls: ['./header.css']
 })
 export class Header {
   @Output() menuToggle = new EventEmitter<void>();

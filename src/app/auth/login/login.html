@@ -1,7 +1,44 @@
-<h2>Login</h2>
-<form (submit)="login()">
-  <input [(ngModel)]="email" name="email" placeholder="Email" required />
-  <input [(ngModel)]="password" name="password" type="password" placeholder="Password" required />
-  <button type="submit">Login</button>
-</form>
-<p>Don't have an account? <a routerLink="/register">Register here</a></p>
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+  <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-2xl shadow-lg">
+    <h2 class="text-2xl font-bold text-center text-gray-800">Login</h2>
+    <form (submit)="login()" class="space-y-5">
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+        <input
+          [(ngModel)]="email"
+          name="email"
+          id="email"
+          type="email"
+          required
+          placeholder="you@example.com"
+          class="w-full px-4 py-2 mt-1 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
+      </div>
+
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+        <input
+          [(ngModel)]="password"
+          name="password"
+          id="password"
+          type="password"
+          required
+          placeholder="••••••••"
+          class="w-full px-4 py-2 mt-1 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="w-full px-4 py-2 text-white transition-colors duration-300 bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        Login
+      </button>
+    </form>
+
+    <p class="text-sm text-center text-gray-600">
+      Don't have an account?
+      <a routerLink="/register" class="text-blue-600 hover:underline">Register here</a>
+    </p>
+  </div>
+</div>

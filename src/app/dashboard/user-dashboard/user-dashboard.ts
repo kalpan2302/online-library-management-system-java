@@ -8,7 +8,6 @@ import { AuthService } from '../../services/auth.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './user-dashboard.html',
-  styleUrl: './user-dashboard.css'
 })
 export class UserDashboard {
   username : string = '';;
