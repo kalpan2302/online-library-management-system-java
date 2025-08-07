@@ -28,7 +28,7 @@ export class App {
 
   // Check if current page is login page
   isLoginPage(): boolean {
-    return this.router.url === '/' || this.router.url === '/login';
+    return this.router.url === '/' || this.router.url === '/login' || this.router.url === '/register';
   }
 
   // Logout and close the menu
