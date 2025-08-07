@@ -5,6 +5,6 @@ import { Component, Input } from '@angular/core';
   templateUrl: './sidemenu.html',
   styleUrls: ['./sidemenu.css']
 })
-export class SidemenuComponent {
+export class Sidemenu {
   @Input() isOpen: boolean = false;
 }

@@ -1,0 +1,14 @@
+<h2>Welcome, {{ username }}</h2>
+
+<button (click)="loadAllBooks()">View All Books</button>
+<button (click)="loadIssuedBooks()">Issued Books</button>
+<button (click)="loadReturnedBooks()">Returned Books</button>
+<button (click)="loadOverdueBooks()">Overdue Books</button>
+
+<div *ngIf="error" class="error">{{ error }}</div>
+
+<ul>
+  <li *ngFor="let book of books">
+    {{ book.title }} by {{ book.author }}
+  </li>
+</ul>

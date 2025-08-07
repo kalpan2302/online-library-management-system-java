@@ -1,19 +1,37 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { HeaderComponent } from './components/header/header';
-import { FooterComponent } from './components/footer/footer';
-import { SidemenuComponent } from './components/sidemenu/sidemenu';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { Header } from './layout/header/header';
+import { Footer } from './layout/footer/footer';
+import { Sidemenu } from './layout/sidemenu/sidemenu';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [HeaderComponent, FooterComponent, SidemenuComponent],
+  imports: [RouterOutlet, CommonModule, Header, Footer, Sidemenu, RouterModule],
   templateUrl: './app.html',
-  styleUrls: ['./app.css']
+  styleUrl: './app.css'
 })
-export class AppComponent {
+export class App {
   isMenuOpen = false;
 
+  constructor(private router: Router) { }
+
+  isLoggedIn() {
+    return !!localStorage.getItem('token');
+  }
+  
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/login']);
+    this.isMenuOpen = false;
+  }
+  
+  isLoginPage() {
+    return this.router.url === '/' || this.router.url === '/login';
+  }
+  
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
+
 }
