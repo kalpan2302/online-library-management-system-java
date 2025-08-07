@@ -7,6 +7,7 @@ import { Sidemenu } from './layout/sidemenu/sidemenu';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [RouterOutlet, CommonModule, Header, Footer, Sidemenu, RouterModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
@@ -14,24 +15,27 @@ import { Sidemenu } from './layout/sidemenu/sidemenu';
 export class App {
   isMenuOpen = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
-  isLoggedIn() {
-    return !!localStorage.getItem('token');
-  }
-  
-  logout() {
-    localStorage.clear();
-    this.router.navigate(['/login']);
-    this.isMenuOpen = false;
-  }
-  
-  isLoginPage() {
-    return this.router.url === '/' || this.router.url === '/login';
-  }
-  
+  // Toggle side menu
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
+  // Check if user is logged in
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
+  // Check if current page is login page
+  isLoginPage(): boolean {
+    return this.router.url === '/' || this.router.url === '/login';
+  }
+
+  // Logout and close the menu
+  logout(): void {
+    localStorage.clear();
+    this.isMenuOpen = false;
+    this.router.navigate(['/login']);
+  }
 }

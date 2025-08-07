@@ -1,8 +1,20 @@
-<nav class="sidemenu" [class.open]="isOpen">
-  <ul>
-    <li><a href="#">Home</a></li>
-    <li><a href="#">About</a></li>
-    <li><a href="#">Services</a></li>
-    <li><a href="#">Contact</a></li>
+<nav
+  [ngClass]="{
+    'left-0': isOpen,
+    'left-[-220px]': !isOpen
+  }"
+  class="fixed top-[65px] w-[200px] h-[calc(100vh-100px)] bg-gray-100 pt-5 shadow-md overflow-y-auto transition-all duration-300 ease-in-out"
+>
+  <ul class="space-y-1 px-4">
+    <li><a href="#" class="block px-3 py-2 rounded hover:bg-blue-100 text-gray-700 font-medium">Home</a></li>
+    <li><a href="#" class="block px-3 py-2 rounded hover:bg-blue-100 text-gray-700 font-medium">About</a></li>
+    <li><a href="#" class="block px-3 py-2 rounded hover:bg-blue-100 text-gray-700 font-medium">Services</a></li>
+    <li><a href="#" class="block px-3 py-2 rounded hover:bg-blue-100 text-gray-700 font-medium">Contact</a></li>
+    <!-- Optional: Close button inside menu -->
+    <li>
+      <button (click)="close()" class="mt-4 w-full px-3 py-2 bg-red-100 text-red-600 rounded hover:bg-red-200">
+        Close Menu
+      </button>
+    </li>
   </ul>
 </nav>

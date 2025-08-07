@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { CommonModule } from '@angular/common'; // ✅ Needed for ngClass
 import { Sidemenu } from './sidemenu';
 
 describe('Sidemenu', () => {
@@ -8,9 +8,9 @@ describe('Sidemenu', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Sidemenu]
-    })
-    .compileComponents();
+      imports: [CommonModule], // ✅ Correct: import CommonModule
+      declarations: [Sidemenu], // ✅ Declare your component here
+    }).compileComponents();
 
     fixture = TestBed.createComponent(Sidemenu);
     component = fixture.componentInstance;
