@@ -1,6 +1,6 @@
-<div class="flex items-center justify-center min-h-screen bg-gray-100">
+<div class="flex items-center justify-center min-h-screen font-inter">
   <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-2xl shadow-lg">
-    <h2 class="text-2xl font-bold text-center text-gray-800">Login</h2>
+    <h2 class="text-2xl font-bold text-center text-gray-800">Login to your account</h2>
     <form (submit)="login()" class="space-y-5">
       <div>
         <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
@@ -11,29 +11,39 @@
           type="email"
           required
           placeholder="you@example.com"
-          class="w-full px-4 py-2 mt-1 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          class="placeholder-gray-400 w-full px-4 py-2 mt-1 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#16eddb] focus:border-transparent"
         />
       </div>
 
       <div>
         <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-        <input
-          [(ngModel)]="password"
-          name="password"
-          id="password"
-          type="password"
-          required
-          placeholder="••••••••"
-          class="w-full px-4 py-2 mt-1 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-        />
+        <div class="relative">
+          <input
+            [(ngModel)]="password"
+            name="password"
+            id="password"
+            [type]="showPassword ? 'text' : 'password'"
+            required
+            placeholder="••••••••"
+            class="placeholder-gray-400 w-full px-4 py-2 mt-1 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#16eddb] focus:border-transparent pr-10"
+          />
+          <span
+            class="material-symbols-outlined absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500"
+            (click)="togglePassword()"
+          >
+            {{ showPassword ? 'visibility_off' : 'visibility' }}
+          </span>
+        </div>
       </div>
 
-      <button
-        type="submit"
-        class="w-full px-4 py-2 text-white transition-colors duration-300 bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      >
-        Login
-      </button>
+      <div class="flex justify-center">
+        <button
+          type="submit"
+          class="w-[50%] px-4 py-2 text-black hover:text-white transition-colors duration-300 bg-[#16eddb] rounded-lg hover:bg-[#0a9387] focus:outline-none focus:ring-2 focus:ring-[#0a9387] cursor-pointer"
+        >
+          Login
+        </button>
+      </div>
     </form>
 
     <p class="text-sm text-center text-gray-600">

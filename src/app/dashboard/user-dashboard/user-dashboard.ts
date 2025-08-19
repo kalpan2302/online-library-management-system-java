@@ -1,54 +1,44 @@
-import { Component } from '@angular/core';
-import { BookServiceForUser } from '../../services/user-book.service';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Sidemenu } from '../../layout/sidemenu/sidemenu';
+import { BooksManagement } from './books-management/books-management';
 
 @Component({
   selector: 'app-user-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    FormsModule, 
+    Sidemenu,
+    BooksManagement,
+  ],
   templateUrl: './user-dashboard.html',
 })
-export class UserDashboard {
-  username : string = '';;
+export class UserDashboard implements OnInit {
+  username: string = '';
+  currentSection: string = 'books'; // Default section
 
-  constructor(private bookService: BookServiceForUser, private authService: AuthService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.authService.getProfile().subscribe(profile => {
-      this.username = profile.name;
+    this.authService.getProfile().subscribe({
+      next: (profile) => {
+        this.username = profile.name;
+        if (profile.role !== 'USER') {
+          console.error('Access denied! User is not an USER.');
+        }
+      },
+      error: (err) => {
+        console.error('Failed to load profile:', err);
+        this.authService.logout();
+      }
     });
   }
 
-
-  books: any[] = [];
-  error = '';
-
-  loadAllBooks() {
-    this.bookService.getAllBooks().subscribe({
-      next: data => this.books = data,
-      error: err => this.error = 'Failed to load books'
-    });
-  }
-
-  loadIssuedBooks() {
-    this.bookService.getIssuedBooks().subscribe({
-      next: data => this.books = data,
-      error: err => this.error = 'Failed to load issued books'
-    });
-  }
-
-  loadReturnedBooks() {
-    this.bookService.getReturnedBooks().subscribe({
-      next: data => this.books = data,
-      error: err => this.error = 'Failed to load returned books'
-    });
-  }
-
-  loadOverdueBooks() {
-    this.bookService.getOverdueBooks().subscribe({
-      next: data => this.books = data,
-      error: err => this.error = 'Failed to load overdue books'
-    });
+  onSectionSelected(section: string) {
+    this.currentSection = section;
+    console.log(`User Dashboard: Switched to section: ${this.currentSection}`);
   }
 }

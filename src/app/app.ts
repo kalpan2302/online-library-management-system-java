@@ -3,18 +3,18 @@ import { Component } from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { Header } from './layout/header/header';
 import { Footer } from './layout/footer/footer';
-import { Sidemenu } from './layout/sidemenu/sidemenu';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, Header, Footer, Sidemenu, RouterModule],
+  imports: [RouterOutlet, CommonModule, Header, Footer, RouterModule],
   templateUrl: './app.html',
 })
 export class App {
   isMenuOpen = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   // Toggle side menu
   toggleMenu() {
@@ -23,17 +23,17 @@ export class App {
 
   // Check if user is logged in
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    return this.authService.isLoggedIn();
   }
 
-  // Check if current page is login page
+  // Check if current page is login/register page
   isLoginPage(): boolean {
     return this.router.url === '/' || this.router.url === '/login' || this.router.url === '/register';
   }
 
   // Logout and close the menu
   logout(): void {
-    localStorage.clear();
+    this.authService.logout();
     this.isMenuOpen = false;
     this.router.navigate(['/login']);
   }

@@ -14,6 +14,7 @@ export class Login {
   email = '';
   password = '';
   errorMessage = '';
+  showPassword: boolean = false;
 
   constructor(private router: Router, private authService: AuthService) {}
 
@@ -28,10 +29,15 @@ export class Login {
         } else {
           this.router.navigate(['/user-dashboard']);
         }
+
       },
       error: () => {
         this.errorMessage = 'Invalid email or password';
       }
     });
+  }
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
   }
 }
