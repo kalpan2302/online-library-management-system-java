@@ -1,14 +1,41 @@
-<h2>Welcome, {{ username }}</h2>
+<div class="font-inter">
+  <div class="flex h-screen">
+    <app-sidemenu (sectionSelected)="onSectionSelected($event)"></app-sidemenu>
 
-<button (click)="loadAllBooks()">View All Books</button>
-<button (click)="loadIssuedBooks()">Issued Books</button>
-<button (click)="loadReturnedBooks()">Returned Books</button>
-<button (click)="loadOverdueBooks()">Overdue Books</button>
+    <div class="flex-1 p-6 overflow-auto">
+      <h2 class="text-xl font-semibold mb-6 text-gray-800">Hi, {{ username }}! (User Dashboard)</h2>
 
-<div *ngIf="error" class="error">{{ error }}</div>
+      @switch (currentSection) {
+      @case ('books') {
+      <app-user-books-management></app-user-books-management>
+      }
 
-<ul>
-  <li *ngFor="let book of books">
-    {{ book.title }} by {{ book.author }}
-  </li>
-</ul>
+      <!-- Example for a section not yet a separate component like above 'books' section-->
+      @case ('issued') {
+      <p class="text-gray-600">Issued Books section coming soon!</p>
+      }
+      @case ('returned') {
+      <p class="text-gray-600">Returned Books section coming soon!</p>
+      }
+      @case ('overdue') {
+      <p class="text-gray-600">Overdue section coming soon!</p>
+      }
+      @case ('saved') {
+      <p class="text-gray-600">Saved Books section coming soon!</p>
+      }
+      @case ('notifications') {
+      <p class="text-gray-600">Notifications section coming soon!</p>
+      }
+      @case ('recommended') {
+      <p class="text-gray-600">Recommended Books section coming soon!</p>
+      }
+      @default {
+      <div class="p-4 bg-white rounded-lg shadow-md">
+        <h3 class="text-xl font-semibold text-gray-500">Select a section from the side menu.</h3>
+        <p class="text-gray-600 mt-2">Use the navigation on the left to explore the user features.</p>
+      </div>
+      }
+      }
+    </div>
+  </div>
+</div>

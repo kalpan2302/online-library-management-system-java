@@ -1,0 +1,47 @@
+<div class="font-inter">
+
+  <h2 class="text-4xl font-bold mb-4">Books List</h2>
+  <div *ngIf="message" [innerHTML]="message" class="text-center p-2 mb-4 rounded bg-yellow-100 text-yellow-800 font-medium">
+    {{ message }}
+  </div>
+
+  <div class="p-4 rounded-lg shadow-lg">
+
+    <p *ngIf="error" class="text-red-500">{{ error }}</p>
+
+    <div *ngIf="books.length > 0" class="overflow-auto">
+      <table class="min-w-full rounded-lg">
+        <thead>
+          <tr class="text-sm font-bold text-gray-800">
+            <th class="px-4 py-2 text-left">TITLE</th>
+            <th class="px-4 py-2 text-left">AUTHOR</th>
+            <th class="px-4 py-2 text-left">CATEGORY</th>
+            <th class="px-4 py-2 text-left">TOTAL COPIES</th>
+            <th class="px-4 py-2 text-left">AVAILABLE COPIES</th>
+            <th class="px-4 py-2 text-left">SAVE FOR LATER</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let book of books" class="text-base font-normal text-gray-800">
+            <td class="px-4 py-2">{{ book.title }}</td>
+            <td class="px-4 py-2">{{ book.author }}</td>
+            <td class="px-4 py-2">{{ book.category }}</td>
+            <td class="px-4 py-2">{{ book.totalCopies }}</td>
+            <td class="px-4 py-2">{{ book.availableCopies }}</td>
+            <td class="px-4 py-2">
+              <span (click)="saveForLater(book)" title="Save"class="material-symbols-outlined cursor-pointer hover:text-blue-500">
+                bookmark
+              </span>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- If No books available -->
+    <div *ngIf="books.length === 0 && !error" class="text-gray-500">
+      No books available.
+    </div>
+  </div>
+</div>

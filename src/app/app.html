@@ -1,33 +1,9 @@
-<app-header (menuToggle)="toggleMenu()"></app-header>
+<app-header> </app-header>
 
-<div class="main-layout mx-4">
-  <!-- Two-way binding using [(isOpen)] -->
-  <app-sidemenu [(isOpen)]="isMenuOpen"></app-sidemenu>
-
-  <nav *ngIf="isLoggedIn() && !isLoginPage()">
-   <div class="flex items-center gap-4 mt-4">
-  <a 
-    (click)="logout()" 
-    class="text-blue-600 hover:text-blue-800 underline underline-offset-4 decoration-blue-400 hover:decoration-blue-600 transition duration-200 cursor-pointer font-medium"
-  >
-    Logout
-  </a>
-  
-  <span class="text-gray-300">|</span>
-  
-  <a 
-    routerLink="/" 
-    class="text-blue-600 hover:text-blue-800 underline underline-offset-4 decoration-blue-400 hover:decoration-blue-600 transition duration-200 cursor-pointer font-medium"
-  >
-    Home
-  </a>
-</div>
-
-  </nav>
-
-  <div class="content">
+<div class="main-layout mx-4 mt-20">
+  <main class="container mx-auto px-4 mt-21">
     <router-outlet></router-outlet>
-  </div>
+  </main>
+  
+  <app-footer></app-footer>
 </div>
-
-<app-footer></app-footer>

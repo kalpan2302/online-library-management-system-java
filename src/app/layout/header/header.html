@@ -1,9 +1,41 @@
-<header class="flex items-center bg-[#1976d2] text-white px-6 py-4">
-  <button
-    (click)="toggleMenu()"
-    class="mr-4 bg-white text-[#1976d2] border-none px-3 py-2 rounded hover:bg-gray-100 text-base cursor-pointer"
-  >
-    ☰ Menu
-  </button>
-  <h2 class="text-lg font-semibold">Online Library Management System</h2>
+<header
+  class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-4 md:px-16 md:py-6 rounded-xl shadow-md font-inter"
+  style="background: linear-gradient(to right, #DAF8F5 55%, #F1FAF7, #FDF8F4 75%);">
+
+  <a href="/" class="flex items-center space-x-1 sm:space-x-2 cursor-pointer">
+    <img src="header-logo.png" alt="BiblioTrack Logo" class="h-5 w-5 sm:h-6 sm:w-6">
+    <span class="font-bold text-xl sm:text-2xl">BiblioTrack</span>
+  </a>
+
+  <nav class="flex items-center">
+    <ul class="flex items-center space-x-4 sm:space-x-12 font-normal text-sm sm:text-base">
+      <li>
+        <a href="/" class="transition-colors duration-200">
+          Home
+        </a>
+      </li>
+      <li>
+        <a href="javascript:void(0)" (click)="scrollToSection('about-section')" class="transition-colors duration-200">
+          About
+        </a>
+      </li>
+      <li>
+        <a href="javascript:void(0)" (click)="scrollToSection('contact-section')"
+          class="transition-colors duration-200">
+          Contact
+        </a>
+      </li>
+
+      @if(isLoggedIn){
+      <li>
+        <div class="rounded-full cursor-pointer transition-colors duration-200">
+          <span class="material-icons text-2xl align-middle" style="font-size: 32px;">
+            account_circle
+          </span>
+        </div>
+      </li>
+      }
+    </ul>
+  </nav>
+
 </header>

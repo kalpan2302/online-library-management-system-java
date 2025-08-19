@@ -1,0 +1,26 @@
+<div class="font-inter">
+  <h2 class="text-4xl font-bold mb-4">Users</h2>
+  <div class="p-4 rounded-lg shadow-lg">
+
+    <p *ngIf="error" class="text-red-500">{{ error }}</p>
+
+    <table class="min-w-full rounded-lg">
+      <thead>
+        <tr class="text-sm font-bold text-gray-800">
+          <th class="px-4 py-2 text-left">ID</th>
+          <th class="px-4 py-2 text-left">FULL NAME</th>
+          <th class="px-4 py-2 text-left">EMAIL</th>
+          <th class="px-4 py-2 text-left">PHONE NUMBER</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users" class="text-base font-normal text-gray-800">
+          <td class="px-4 py-2">{{ user.id }}</td>
+          <td class="px-4 py-2">{{ user.name }}</td>
+          <td class="px-4 py-2">{{ user.email }}</td>
+          <td class="px-4 py-2">{{ user.contact }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
