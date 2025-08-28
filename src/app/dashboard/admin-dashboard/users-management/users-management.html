@@ -1,26 +1,50 @@
-<div class="font-inter">
-  <h2 class="text-4xl font-bold mb-4">Users</h2>
-  <div class="p-4 rounded-lg shadow-lg">
+<div class="pt-8 px-4">
+  <h1 class="text-4xl font-bold mb-10">Users</h1>
+  <table class="min-w-full mb-10">
+    <thead>
+      <tr class="text-gray-800 text-lg font-bold">
+        <th class="px-4 py-2 text-left">ID</th>
+        <th class="px-4 py-2 text-left">FULL NAME</th>
+        <th class="px-4 py-2 text-left">EMAIL</th>
+        <th class="px-4 py-2 text-left">PHONE NUMBER</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of shownUsers" class="text-gray-800 text-base font-normal">
+        <td class="px-4 py-2">{{ user.id }}</td>
+        <td class="px-4 py-2">{{ user.fullName }}</td>
+        <td class="px-4 py-2">{{ user.email }}</td>
+        <td class="px-4 py-2">{{ user.phoneNumber }}</td>
+      </tr>
+    </tbody>
+  </table>
 
-    <p *ngIf="error" class="text-red-500">{{ error }}</p>
-
-    <table class="min-w-full rounded-lg">
-      <thead>
-        <tr class="text-sm font-bold text-gray-800">
-          <th class="px-4 py-2 text-left">ID</th>
-          <th class="px-4 py-2 text-left">FULL NAME</th>
-          <th class="px-4 py-2 text-left">EMAIL</th>
-          <th class="px-4 py-2 text-left">PHONE NUMBER</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users" class="text-base font-normal text-gray-800">
-          <td class="px-4 py-2">{{ user.id }}</td>
-          <td class="px-4 py-2">{{ user.name }}</td>
-          <td class="px-4 py-2">{{ user.email }}</td>
-          <td class="px-4 py-2">{{ user.contact }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- Pagination: Only show pages that actually have users -->
+  <div class="flex justify-center mb-10" *ngIf="activePages.length > 1">
+    <nav class="flex items-center space-x-2">
+      <button
+        class="rounded px-4 py-2 bg-white border border-gray-300 text-gray-500 font-bold"
+        [disabled]="currentPage === activePages[0]"
+        (click)="goToPage(currentPage - 1)">
+        &lt;
+      </button>
+      <ng-container *ngFor="let page of activePages">
+        <button
+          class="rounded px-4 py-2 font-bold"
+          [ngClass]="{
+            'bg-[#b3e3e6] text-white border-2 border-[#b3e3e6]': currentPage === page,
+            'bg-white text-gray-700 border border-gray-300 hover:bg-[#e7f7f6]': currentPage !== page
+          }"
+          (click)="goToPage(page)">
+          {{ page }}
+        </button>
+      </ng-container>
+      <button
+        class="rounded px-4 py-2 bg-white border border-gray-300 text-gray-500 font-bold"
+        [disabled]="currentPage === activePages[activePages.length - 1]"
+        (click)="goToPage(currentPage + 1)">
+        &gt;
+      </button>
+    </nav>
   </div>
 </div>

@@ -1,0 +1,27 @@
+<nav class="w-64 bg-[#cef3ef] p-6 rounded-r-3xl min-h-screen flex flex-col shadow-lg font-semibold text-gray-800">
+  <div class="mb-10 ml-1 font-bold text-lg">Hi Admin!</div>
+  <ul class="flex-1 space-y-2">
+    <li *ngFor="let section of sections">
+      <button
+        (click)="selectSection(section.key)"
+        [ngClass]="{
+          'bg-[#b7ede8] text-[#144646] font-bold': currentSection === section.key,
+          'hover:bg-[#e0f7fa] hover:text-[#23a095]': currentSection !== section.key
+        }"
+        class="flex items-center gap-3 w-full text-left px-5 py-2 rounded-full transition-colors duration-200"
+      >
+        <span class="material-icons" style="font-size: 1.6rem;">
+          {{ section.icon }}
+        </span>
+        <span>{{ section.label }}</span>
+      </button>
+    </li>
+  </ul>
+  <button
+    (click)="selectSection('logout')"
+    class="flex items-center gap-3 w-full text-left px-5 py-2 rounded font-semibold text-gray-800 mt-6 hover:bg-[#e0f7fa] transition-colors duration-200"
+  >
+    <span class="material-icons" style="font-size: 1.6rem;">logout</span>
+    <span>Logout</span>
+  </button>
+</nav>

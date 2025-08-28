@@ -5,43 +5,118 @@
     <div class="flex justify-end mb-4">
       <button
         class="cursor-pointer px-16 py-3 text-sm font-bold text-gray-800 rounded-full shadow-sm bg-[#cef3ef] hover:bg-[#97e9e2] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#68d9d0] transition-colors duration-300"
-        (click)="addBook()">
+        (click)="openAddBookDialog()"
+      >
         ADD BOOK
       </button>
     </div>
 
     <p *ngIf="error" class="text-red-500">{{ error }}</p>
 
-      <table class="min-w-full rounded-lg">
-        <thead>
-          <tr class="text-sm font-bold text-gray-800">
-            <th class="px-4 py-2 text-left">ID</th>
-            <th class="px-4 py-2 text-left">TITLE</th>
-            <th class="px-4 py-2 text-left">AUTHOR</th>
-            <th class="px-4 py-2 text-left">CATEGORY</th>
-            <th class="px-4 py-2 text-left">TOTAL COPIES</th>
-            <th class="px-4 py-2 text-left">AVAILABLE COPIES</th>
-            <th class="px-4 py-2 text-left">ACTIONS</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let book of books" class="text-base font-normal text-gray-800">
-            <td class="px-4 py-2">{{ book.book_id }}</td>
-            <td class="px-4 py-2">{{ book.title }}</td>
-            <td class="px-4 py-2">{{ book.author }}</td>
-            <td class="px-4 py-2">{{ book.category }}</td>
-            <td class="px-4 py-2">{{ book.totalCopies }}</td>
-            <td class="px-4 py-2">{{ book.availableCopies }}</td>
-            <td class="px-4 py-2 space-x-6 flex">
-              <button class="cursor-pointer hover:text-yellow-500" (click)="editBook(book)" title="Edit">
-                <span class="material-symbols-outlined">edit_square</span>
-              </button>
-              <button class="cursor-pointer hover:text-red-500" (click)="deleteBook(book.book_id)" title="Delete">
-                <span class="material-symbols-outlined">delete</span>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <table class="min-w-full rounded-lg">
+      <thead>
+        <tr class="text-sm font-bold text-gray-800">
+          <th class="px-4 py-2 text-left">ID</th>
+          <th class="px-4 py-2 text-left">TITLE</th>
+          <th class="px-4 py-2 text-left">AUTHOR</th>
+          <th class="px-4 py-2 text-left">CATEGORY</th>
+          <th class="px-4 py-2 text-left">TOTAL COPIES</th>
+          <th class="px-4 py-2 text-left">AVAILABLE COPIES</th>
+          <th class="px-4 py-2 text-left">ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let book of books" class="text-base font-normal text-gray-800">
+          <td class="px-4 py-2">{{ book.id }}</td>
+          <td class="px-4 py-2">{{ book.title }}</td>
+          <td class="px-4 py-2">{{ book.author }}</td>
+          <td class="px-4 py-2">{{ book.category }}</td>
+          <td class="px-4 py-2">{{ book.totalCopies }}</td>
+          <td class="px-4 py-2">{{ book.availableCopies }}</td>
+          <td class="px-4 py-2 space-x-6 flex">
+            <button class="cursor-pointer hover:text-yellow-500" title="Edit" disabled>
+              <span class="material-symbols-outlined">edit_square</span>
+            </button>
+            <button class="cursor-pointer hover:text-red-500" (click)="deleteBook(book.id)" title="Delete">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Add Book Modal -->
+    <div *ngIf="showBookDialog" class="fixed inset-0 flex items-center justify-center z-50" style="background: rgba(202, 243, 239, 0.15)">
+      <div class="bg-[#cef3ef] border border-[#8fb7b2] rounded-[2rem] shadow-2xl p-8 w-[430px]">
+        <h2 class="text-3xl font-bold text-gray-800 mb-8 text-left">Add New Book</h2>
+        <form (ngSubmit)="saveBook()" autocomplete="off">
+          <div class="flex items-center mb-5">
+            <label class="w-5/12 text-lg font-bold text-gray-900 text-left">TITLE</label>
+            <input
+              class="w-7/12 border border-gray-300 px-4 py-2 rounded-lg focus:ring-[#68d9d0] focus:border-[#68d9d0] bg-[#e8faf7] text-base"
+              placeholder="Enter Name of the book"
+              [(ngModel)]="bookForm.title"
+              name="title"
+              required
+            />
+          </div>
+          <div class="flex items-center mb-5">
+            <label class="w-5/12 text-lg font-bold text-gray-900 text-left">AUTHOR</label>
+            <select
+              class="w-7/12 border border-gray-300 px-4 py-2 rounded-lg bg-[#e8faf7] text-base"
+              [(ngModel)]="bookForm.author"
+              name="author"
+              required
+            >
+              <option value="" disabled selected>select Author</option>
+              <option *ngFor="let author of authors" [value]="author">{{ author }}</option>
+            </select>
+          </div>
+          <div class="flex items-center mb-5">
+            <label class="w-5/12 text-lg font-bold text-gray-900 text-left">CATEGORY</label>
+            <select
+              class="w-7/12 border border-gray-300 px-4 py-2 rounded-lg bg-[#e8faf7] text-base"
+              [(ngModel)]="bookForm.category"
+              name="category"
+              required
+            >
+              <option value="" disabled selected>select Category</option>
+              <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+            </select>
+          </div>
+          <div class="flex items-center mb-5">
+            <label class="w-5/12 text-lg font-bold text-gray-900 text-left">TOTAL COPIES</label>
+            <input
+              class="w-7/12 border border-gray-300 px-4 py-2 rounded-lg focus:ring-[#68d9d0] focus:border-[#68d9d0] bg-[#e8faf7] text-base"
+              type="number"
+              min="1"
+              placeholder="enter no. of copies"
+              [(ngModel)]="bookForm.totalCopies"
+              name="totalCopies"
+              required
+            />
+          </div>
+          <div class="text-center mb-6">
+            <span class="font-bold text-gray-800">(AVAILABLE COPIES</span>
+            <span class="text-gray-700"> - initially set equal to Total Copies in the database)</span>
+          </div>
+          <div class="flex justify-center mt-6">
+            <button
+              type="submit"
+              class="px-10 py-3 bg-[#8fb7b2] hover:bg-[#68d9d0] text-white text-lg font-bold rounded-full shadow transition-colors duration-300"
+            >
+              SUBMIT
+            </button>
+            <button
+              type="button"
+              class="ml-4 px-10 py-3 bg-gray-300 text-white text-lg font-bold rounded-full"
+              (click)="closeBookDialog()"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </div>

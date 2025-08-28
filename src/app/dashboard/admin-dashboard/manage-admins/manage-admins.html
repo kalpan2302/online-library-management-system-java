@@ -1,0 +1,68 @@
+<div class="pt-8 px-4">
+  <div class="flex items-center justify-between mb-10">
+    <h1 class="text-4xl font-bold">Admins</h1>
+    <button
+      class="px-8 py-3 rounded-full bg-[#cef3ef] text-gray-800 font-bold text-lg hover:bg-[#97e9e2] transition shadow"
+    >
+      ADD NEW ADMIN
+    </button>
+  </div>
+  <table class="min-w-full mb-10">
+    <thead>
+      <tr class="text-gray-800 text-lg font-bold">
+        <th class="px-4 py-2 text-left">ID</th>
+        <th class="px-4 py-2 text-left">FULL NAME</th>
+        <th class="px-4 py-2 text-left">EMAIL</th>
+        <th class="px-4 py-2 text-left">PHONE NUMBER</th>
+        <th class="px-4 py-2 text-left">ACTIONS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let admin of admins" class="text-gray-800 text-base font-normal">
+        <td class="px-4 py-2">{{ admin.id }}</td>
+        <td class="px-4 py-2">{{ admin.fullName }}</td>
+        <td class="px-4 py-2">{{ admin.email }}</td>
+        <td class="px-4 py-2">{{ admin.phoneNumber }}</td>
+        <td class="px-4 py-2 flex gap-6">
+          <!-- Edit icon (material-symbols-outlined) -->
+          <button class="hover:text-yellow-500" title="Edit">
+            <span class="material-symbols-outlined" style="font-size: 1.8rem;">edit</span>
+          </button>
+          <!-- Delete icon -->
+          <button class="hover:text-red-500" title="Delete">
+            <span class="material-symbols-outlined" style="font-size: 1.8rem;">delete</span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div class="flex justify-center mb-10">
+    <nav class="flex items-center space-x-2">
+      <button
+        class="rounded px-4 py-2 bg-white border border-gray-300 text-gray-500 font-bold"
+        [disabled]="currentPage === 1"
+        (click)="goToPage(currentPage - 1)">
+        &lt;
+      </button>
+      <ng-container *ngFor="let page of pages">
+        <button
+          class="rounded px-4 py-2 font-bold"
+          [ngClass]="{
+            'bg-[#b3e3e6] text-white border-2 border-[#b3e3e6]': currentPage === page,
+            'bg-white text-gray-700 border border-gray-300 hover:bg-[#e7f7f6]': currentPage !== page
+          }"
+          (click)="goToPage(page)">
+          {{ page }}
+        </button>
+      </ng-container>
+      <button
+        class="rounded px-4 py-2 bg-white border border-gray-300 text-gray-500 font-bold"
+        [disabled]="currentPage === pages.length"
+        (click)="goToPage(currentPage + 1)">
+        &gt;
+      </button>
+    </nav>
+  </div>
+</div>

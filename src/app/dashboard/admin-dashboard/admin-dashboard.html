@@ -1,41 +1,18 @@
-<div class="font-inter">
-  <div class="flex h-screen">
-    <app-sidemenu (sectionSelected)="onSectionSelected($event)"></app-sidemenu>
+<div class="flex min-h-screen">
+  <app-sidebar
+    [currentSection]="currentSection"
+    (sectionSelected)="onSectionSelected($event)">
+  </app-sidebar>
 
-    <div class="flex-1 p-6 overflow-auto">
-      <h2 class="text-xl font-semibold mb-6 text-gray-800">Hi, {{ username }}! (Admin Dashboard)</h2>
-
-      @switch (currentSection) {
-      @case ('users') {
-      <app-users-management></app-users-management>
-      }
-      @case ('books') {
-      <app-admin-books-management></app-admin-books-management>
-      }
-      
-      <!-- Example for a section not yet a separate component like above 2 sections-->
-      @case ('issueBook') {
-      <p class="text-gray-600">Issued Book section coming soon!</p>
-      }
-      @case ('returnBook') {
-      <p class="text-gray-600">Return Book section coming soon!</p>
-      }
-      @case ('issueHistory') {
-      <p class="text-gray-600">Issue History section coming soon!</p>
-      }
-      @case ('authors') {
-      <p class="text-gray-600">Authors Management section coming soon!</p>
-      }
-      @case ('categories') {
-      <p class="text-gray-600">Categories Management section coming soon!</p>
-      }
-      @default {
-      <div class="p-4 bg-white rounded-lg shadow-md">
-        <h3 class="text-xl font-semibold text-gray-500">Select a section from the side menu.</h3>
-        <p class="text-gray-600 mt-2">Use the navigation on the left to explore the admin features.</p>
-      </div>
-      }
-      }
-    </div>
-  </div>
+  <main class="flex-1 p-6 overflow-auto bg-gradient-to-br from-[#cef3ef] to-[#fdecef]">
+    <app-users-management *ngIf="currentSection === 'users'"></app-users-management>
+    <app-books-management *ngIf="currentSection === 'books'"></app-books-management>
+    <app-issue-book-management *ngIf="currentSection === 'issue-book'"></app-issue-book-management>
+    <app-return-book-management *ngIf="currentSection === 'return-book'"></app-return-book-management>
+    <app-issue-history-management *ngIf="currentSection === 'issue-history'"></app-issue-history-management>
+    <app-renew-requests *ngIf="currentSection === 'renew-requests'"></app-renew-requests>
+    <app-manage-author *ngIf="currentSection === 'manage-author'"></app-manage-author>
+    <app-manage-category *ngIf="currentSection === 'manage-category'"></app-manage-category>
+    <app-manage-admins *ngIf="currentSection === 'manage-admins'"></app-manage-admins>
+  </main>
 </div>

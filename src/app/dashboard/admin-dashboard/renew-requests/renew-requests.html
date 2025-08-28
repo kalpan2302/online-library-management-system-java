@@ -1,0 +1,36 @@
+<div class="pt-8 px-4">
+  <div class="flex items-center justify-between mb-2">
+    <h1 class="text-4xl font-bold">Renew Requests</h1>
+  </div>
+  <table class="min-w-full mt-10">
+    <thead>
+      <tr class="text-gray-800 text-lg font-bold">
+        <th class="px-4 py-2 text-left">USER EMAIL</th>
+        <th class="px-4 py-2 text-left">ISSUED BOOK</th>
+        <th class="px-4 py-2 text-left">ISSUED BY</th>
+        <th class="px-4 py-2 text-left">ISSUE DATE</th>
+        <th class="px-4 py-2 text-left">SCHEDULED RETURN DATE</th>
+        <th class="px-4 py-2 text-left">RENEW (ACCEPT / DECLINE)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let req of requests" class="text-gray-800 text-base font-normal">
+        <td class="px-4 py-2">{{ req.userEmail }}</td>
+        <td class="px-4 py-2">{{ req.issuedBook }}</td>
+        <td class="px-4 py-2">{{ req.issuedBy }}</td>
+        <td class="px-4 py-2">{{ req.issueDate }}</td>
+        <td class="px-4 py-2">{{ req.scheduledReturnDate }}</td>
+        <td class="px-4 py-2 flex gap-8">
+          <!-- Accept icon -->
+          <button class="hover:text-green-700" (click)="acceptRenew(req)" title="Accept">
+            <span style="font-size: 1.8rem;">✔️</span>
+          </button>
+          <!-- Decline icon -->
+          <button class="hover:text-red-700" (click)="declineRenew(req)" title="Decline">
+            <span style="font-size: 1.8rem;">🚫</span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,40 @@
+<div class="flex flex-col items-start justify-center w-full px-8 pt-10">
+  <h2 class="text-4xl font-bold text-gray-800 mb-2">Return Book</h2>
+  <div class="mt-4 bg-[#cef3ef] border border-[#8fb7b2] rounded-[2rem] shadow-2xl px-10 py-8 w-[530px]">
+    <form (ngSubmit)="returnBook()" autocomplete="off">
+      <div class="flex items-center mb-5">
+        <label class="w-5/12 text-lg font-bold text-gray-900 text-left">SELECT USER EMAIL</label>
+        <select class="w-7/12 border border-gray-300 px-4 py-2 rounded-lg bg-[#e8faf7] text-base"
+                [(ngModel)]="form.userEmail" name="userEmail" required>
+          <option value="" disabled selected>select user</option>
+          <option *ngFor="let issue of issues" [value]="issue.userEmail">{{ issue.userEmail }}</option>
+        </select>
+      </div>
+      <div class="flex items-center mb-5">
+        <label class="w-5/12 text-lg font-bold text-gray-900 text-left">SELECT BOOK</label>
+        <select class="w-7/12 border border-gray-300 px-4 py-2 rounded-lg bg-[#e8faf7] text-base"
+                [(ngModel)]="form.bookTitle" name="bookTitle" required>
+          <option value="" disabled selected>select book</option>
+          <option *ngFor="let issue of issues" [value]="issue.issuedBook">{{ issue.issuedBook }}</option>
+        </select>
+      </div>
+      <div class="flex items-center mb-5">
+        <label class="w-5/12 text-lg font-bold text-gray-900 text-left">RETURNED DATE</label>
+        <input type="date" class="w-7/12 border border-gray-300 px-4 py-2 rounded-lg bg-[#e8faf7] text-base"
+               [(ngModel)]="form.returnedByUserOn" name="returnedByUserOn" required>
+      </div>
+      <div class="flex items-center mb-5">
+        <label class="w-5/12 text-lg font-bold text-gray-900 text-left">FINE</label>
+        <input type="number" min="0" class="w-7/12 border border-gray-300 px-4 py-2 rounded-lg bg-[#e8faf7] text-base"
+               [(ngModel)]="form.fine" name="fine">
+      </div>
+      <div class="flex justify-center mt-6">
+        <button type="submit" class="px-16 py-3 bg-gray-800 hover:bg-black text-white text-lg font-bold rounded-full shadow transition-colors duration-300">
+          SUBMIT
+        </button>
+      </div>
+      <div *ngIf="error" class="text-center text-red-500 mt-4">{{ error }}</div>
+      <div *ngIf="success" class="text-center text-green-500 mt-4">{{ success }}</div>
+    </form>
+  </div>
+</div>
