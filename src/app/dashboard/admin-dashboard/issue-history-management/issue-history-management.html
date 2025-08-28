@@ -1,0 +1,39 @@
+<div class="flex flex-col items-start justify-center w-full px-8 pt-10">
+  <h2 class="text-4xl font-bold text-gray-800 mb-2">Issue History</h2>
+  <button (click)="clearTable()" 
+          class="mb-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition">
+    Clear Table
+  </button>
+
+  <div class="mt-4 bg-[#cef3ef] border border-[#8fb7b2] rounded-[2rem] shadow-2xl px-10 py-8 w-full overflow-x-auto max-w-full">
+    <table class="min-w-full divide-y divide-gray-300 text-left table-auto">
+      <thead>
+        <tr class="text-lg font-bold text-gray-900 whitespace-nowrap">
+          <th class="py-2 px-4">USER EMAIL</th>
+          <th class="py-2 px-4">ISSUED BOOK</th>
+          <th class="py-2 px-4">ISSUED BY</th>
+          <th class="py-2 px-4">ISSUE DATE</th>
+          <th class="py-2 px-4">SCHEDULED RETURN DATE</th>
+          <th class="py-2 px-4">RETURN STATUS</th>
+          <th class="py-2 px-4">RETURNED BY USER ON</th>
+          <th class="py-2 px-4">FINE</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        <tr *ngFor="let row of issueHistory$ | async" class="text-base text-gray-800 whitespace-nowrap">
+          <td class="py-2 px-4">{{ row.userEmail }}</td>
+          <td class="py-2 px-4">{{ row.issuedBook }}</td>
+          <td class="py-2 px-4">{{ row.issuedBy }}</td>
+          <td class="py-2 px-4">{{ row.issueDate }}</td>
+          <td class="py-2 px-4">{{ row.scheduledReturnDate }}</td>
+          <td class="py-2 px-4">{{ row.returnStatus || '-' }}</td>
+          <td class="py-2 px-4">{{ row.returnedByUserOn || '-' }}</td>
+          <td class="py-2 px-4">{{ row.fine }}</td>
+        </tr>
+        <tr *ngIf="(issueHistory$ | async)?.length === 0">
+          <td class="py-4 px-4 text-center" colspan="8">No issue records found.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

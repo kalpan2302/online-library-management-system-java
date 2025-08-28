@@ -1,0 +1,56 @@
+<div class="pt-8 px-2">
+  <div class="flex items-center justify-between mb-10">
+    <h1 class="text-4xl font-bold">Manage Authors</h1>
+    <button
+      class="px-8 py-3 rounded-full bg-[#cef3ef] text-gray-800 font-bold text-lg hover:bg-[#97e9e2] transition"
+      (click)="openAddModal()"
+    >
+      ADD AUTHOR
+    </button>
+  </div>
+  <div class="flex justify-center">
+    <div class="w-full max-w-3xl rounded-2xl shadow-lg bg-white/60 p-8 relative" style="backdrop-filter: blur(2px);">
+      <div *ngIf="error" class="mb-3 text-red-500 font-semibold"> {{ error }} </div>
+      <table class="min-w-full">
+        <thead>
+          <tr class="text-gray-800 text-lg font-bold">
+            <th class="px-4 py-2 text-left">ID</th>
+            <th class="px-4 py-2 text-left">AUTHOR NAME</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let author of authors" class="text-gray-800 text-base font-normal">
+            <td class="px-4 py-2">{{ author.id }}</td>
+            <td class="px-4 py-2">{{ author.name }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Add Author Modal -->
+  <div *ngIf="showAddModal" class="fixed inset-0 flex items-center justify-center z-50" style="background: rgba(202,243,239,0.28)">
+    <div class="bg-[#cef3ef] rounded-[2.2rem] shadow-2xl p-10 w-[520px] flex flex-col items-center border border-gray-200">
+      <h2 class="text-3xl font-bold text-gray-900 mb-10 text-center">Add New Author</h2>
+      <form (ngSubmit)="addAuthor()" autocomplete="off" class="w-full flex flex-col items-center gap-10">
+        <div class="w-full flex items-center gap-4">
+          <label class="font-bold text-gray-800 text-lg">AUTHOR NAME</label>
+          <input
+            class="border border-gray-300 px-4 py-2 rounded-full w-2/3 bg-[#e8faf7] text-base font-semibold"
+            placeholder="Name of the author"
+            [(ngModel)]="newAuthorName"
+            name="authorName"
+            required
+          />
+        </div>
+        <div *ngIf="error" class="text-red-500 text-center text-sm mb-3 w-full">{{error}}</div>
+        <button
+          type="submit"
+          class="px-10 py-3 bg-[#77bddd] hover:bg-[#4e93bc] text-white font-bold rounded-full shadow transition"
+        >
+          SUBMIT
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
