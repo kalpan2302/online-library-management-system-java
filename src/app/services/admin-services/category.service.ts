@@ -1,27 +1,38 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { map, Observable } from 'rxjs';
 
-@Injectable({ providedIn: 'root' })
+interface Category {
+  categoryId?: number;
+  name: string;
+  fineRatePerDay: string;
+  isExist: boolean
+}
 
-// for admin dashboard: to manage category of a book
-
+@Injectable({
+  providedIn: 'root'
+})
 export class CategoryService {
+  private baseUrl = 'http://localhost:8080/api/admin/categories';
+
   constructor(private http: HttpClient) { }
 
-  getAllCategories(): Observable<string[]> {
-    if (environment.useDummy) {
-      return of(['Fiction', 'Non-fiction', 'Programming', 'Philosophy']);
-    }
-    return this.http.get<string[]>('http://localhost:8080/categories');
+  getAllCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(`${this.baseUrl}/all`).pipe(
+      map(categories => categories.filter(a => a.isExist === true)) // only active categories
+    );
   }
 
-  addCategory(name: string): Observable<string> {
-    if (environment.useDummy) {
-      return of(`Category ${name} added.`);
-    }
-    return this.http.post<string>('http://localhost:8080/categories', { name });
+
+  addCategory(category: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/add`, category);
+  }
+
+  updateCategory(categoryId: number, category: any): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/update/${categoryId}`, category);
+  }
+
+  deleteCategory(categoryId: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/delete/${categoryId}`);
   }
 }

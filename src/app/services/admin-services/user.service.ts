@@ -1,23 +1,67 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { Observable, map } from 'rxjs';
+
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  phone?: string;
+  role: string;
+  created_at?: string;
+}
 
 @Injectable({ providedIn: 'root' })
-
-// for admin dashboard: to view all the registered users
-
 export class UserService {
+  private baseUrl = 'http://localhost:8080';
   constructor(private http: HttpClient) { }
 
-  getAllUsers(): Observable<any[]> {
-    if (environment.useDummy) {
-      return of([
-        { id: 1, name: 'User One', email: 'user1@example.com', contact: '9999999999' },
-        { id: 2, name: 'User Two', email: 'user2@example.com', contact: '888888888' },
-        { id: 3, name: 'User 3', email: 'user3@example.com', contact: '8111111111' }
-      ]);
+  getAllUsers(): Observable<User[]> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('No token found');
     }
-    return this.http.get<any[]>('http://localhost:8080/users');
+
+    return this.http.get<User[]>(`${this.baseUrl}/auth/users/all`, {
+    }).pipe(
+      map(users => users
+        .filter(u => u.role === 'USER')
+        .map(u => ({
+          ...u,
+          created_at: u.created_at
+            ? new Date(u.created_at).toLocaleDateString('en-GB')
+            : ''
+        }))
+      )
+    );
+  }
+
+  getAllAdmins(): Observable<User[]> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('No token found');
+    }
+
+    return this.http.get<User[]>(`${this.baseUrl}/auth/users/all`, {
+      headers: { Authorization: `Bearer ${token}` }
+    }).pipe(
+      map(users => users
+        .filter(u => u.role === 'ADMIN')
+        .map(u => ({
+          ...u,
+          created_at: u.created_at
+            ? new Date(u.created_at).toLocaleDateString('en-GB')
+            : ''
+        }))
+      )
+    );
+  }
+
+  // to add another admin
+  addUser(user: any): Observable<any> {
+    const token = localStorage.getItem('token');
+    return this.http.post(`${this.baseUrl}/auth/admin/add-user`, user, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
   }
 }
