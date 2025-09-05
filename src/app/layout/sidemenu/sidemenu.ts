@@ -44,19 +44,25 @@ export class Sidemenu implements OnInit {
   setMenuItems(role: string) {
     if (role === 'ADMIN') {
       this.menuItems = [
+        { label: 'Admins', icon: 'person', section: 'admins' },
         { label: 'Users', icon: 'person', section: 'users' },
         { label: 'Manage Books', icon: 'menu_book', section: 'books' },
+        { label: 'Manage Authors', icon: 'badge', section: 'authors' },
+        { label: 'Manage Category', icon: 'category', section: 'categories' },
+        { label: 'Manage Publications', icon: 'collections_bookmark', section: 'publications' },
         { label: 'Issue Book', icon: 'assignment', section: 'issueBook' },
         { label: 'Return Book', icon: 'assignment_return', section: 'returnBook' },
         { label: 'Issue History', icon: 'history', section: 'issueHistory' },
-        { label: 'Manage Authors', icon: 'badge', section: 'authors' },
-        { label: 'Manage Category', icon: 'category', section: 'categories' },
         { label: 'Logout', icon: 'logout', section: 'logout' },
       ];
-      this.activeSection = 'users';
+      // this.activeSection = 'users';
+      // this.sectionSelected.emit(this.activeSection);
+
+      const savedSection = localStorage.getItem('adminCurrentSection');
+      this.activeSection = savedSection ? savedSection : 'admins';
       this.sectionSelected.emit(this.activeSection);
     }
-    
+
     else {
       this.menuItems = [
         { label: 'Book List', icon: 'menu_book', section: 'books' },
@@ -68,7 +74,11 @@ export class Sidemenu implements OnInit {
         { label: 'Recommended Books', icon: 'star', section: 'recommended' },
         { label: 'Logout', icon: 'logout', section: 'logout' },
       ];
-      this.activeSection = 'books';
+      // this.activeSection = 'books';
+      // this.sectionSelected.emit(this.activeSection);
+
+      const savedSection = localStorage.getItem('userCurrentSection');
+      this.activeSection = savedSection ? savedSection : 'books';
       this.sectionSelected.emit(this.activeSection);
     }
   }

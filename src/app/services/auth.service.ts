@@ -33,69 +33,26 @@ export class AuthService {
 
 
   login(email: string, password: string): Observable<{ token: string; role: string }> {
-    if (environment.useDummy) {
-      const user = this.dummyUsers.find(
-        u => u.email === email && u.password === password
-      );
-      if (user) {
-        return of({ token: user.token, role: user.role });
-      } else {
-        return throwError(() => new Error('Invalid credentials'));
-      }
-    }
-
     return this.http.post<{ token: string; role: string }>(
-      `${this.baseUrl}/login`,
+      `${this.baseUrl}/auth/login`,
       { email, password }
     );
   }
 
-
-  register(
-    email: string,
-    password: string,
-    name: string,
-    contact: string
-  ): Observable<{ token: string; role: string }> {
-    if (environment.useDummy) {
-      const exists = this.dummyUsers.find(user => user.email === email);
-      if (exists) {
-        return throwError(() => new Error('User already exists'));
-      }
-
-      const role = 'USER';
-      const token = `mock-${role.toLowerCase()}-token`;
-
-      this.dummyUsers.push({ email, password, name, contact, token, role });
-
-      return of({ token, role });
-    }
-
-    return this.http.post<{ token: string; role: string }>(
-      `${this.baseUrl}/register`,
-      { email, password, name, contact, role: 'USER' }
+  register(email: string, password: string, name: string, phone: string):
+      Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(
+      `${this.baseUrl}/auth/register`,
+      { email, password, name, phone: phone } // phone maps to backend
     );
   }
 
   getProfile(): Observable<{ name: string, email: string, role: string }> {
-    if (environment.useDummy) {
-      const token = localStorage.getItem('token');
-      const user = this.dummyUsers.find(u => u.token === token);
+    const token = localStorage.getItem('token');
+    if (!token) return throwError(() => new Error('No token found'));
 
-      if (user) {
-        return of({
-          name: user.name,
-          email: user.email,
-          role: user.role
-        });
-      } else {
-        return throwError(() => new Error('User not found'));
-      }
-    }
-
-    // Call real backend when connected to backend
     return this.http.get<{ name: string, email: string, role: string }>(
-      `${this.baseUrl}/api/profile`
+      `${this.baseUrl}/auth/profile`,
     );
   }
 
