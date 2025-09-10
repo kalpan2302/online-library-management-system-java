@@ -10,7 +10,7 @@ import { BooksManagement } from './books-management/books-management';
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule, 
+    FormsModule,
     Sidemenu,
     BooksManagement,
   ],
@@ -29,6 +29,10 @@ export class UserDashboard implements OnInit {
         if (profile.role !== 'USER') {
           console.error('Access denied! User is not an USER.');
         }
+
+        // Load last section from localStorage if exists
+        const lastSection = localStorage.getItem('userCurrentSection');
+        this.currentSection = lastSection ? lastSection : 'books';
       },
       error: (err) => {
         console.error('Failed to load profile:', err);
@@ -39,6 +43,7 @@ export class UserDashboard implements OnInit {
 
   onSectionSelected(section: string) {
     this.currentSection = section;
+    localStorage.setItem('userCurrentSection', section); // save selection
     console.log(`User Dashboard: Switched to section: ${this.currentSection}`);
   }
 }

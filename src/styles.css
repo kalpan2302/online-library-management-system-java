@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+
 @layer base {
 
   html,
@@ -42,5 +43,24 @@
       'wght' 400,
       'GRAD' 0,
       'opsz' 24;
+  }
+
+  @keyframes fade-in-out {
+
+    0%,
+    100% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    10%,
+    90% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-out {
+    animation: fade-in-out 3s ease-in-out forwards;
   }
 }

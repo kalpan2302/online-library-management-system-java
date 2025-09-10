@@ -31,8 +31,8 @@ export class Login {
         }
 
       },
-      error: () => {
-        this.errorMessage = 'Invalid email or password';
+      error: (err) => {
+        this.errorMessage = err.error.message;
       }
     });
   }

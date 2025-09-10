@@ -19,6 +19,7 @@ export class Register {
   confirmPassword: string = '';
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
+  successMessage: string = '';
 
   constructor(private router: Router, private authService: AuthService) { }
 
@@ -34,26 +35,21 @@ export class Register {
     }
 
     this.authService.register(this.email, this.password, this.name, this.contact).subscribe({
-      next: (result: { token: string, role: string }) => {
-        localStorage.setItem('token', result.token);
-        localStorage.setItem('role', result.role);
+      next: (result: { message: string }) => {
+        this.successMessage = result.message; // "User registered successfully"
 
-        //  Clear form inputs
+        // Clear form inputs
         this.name = '';
         this.email = '';
         this.contact = '';
         this.password = '';
         this.confirmPassword = '';
 
-        // Navigate based on role
-        if (result.role === 'ADMIN') {
-          this.router.navigate(['/admin-dashboard']);
-        } else {
-          this.router.navigate(['/user-dashboard']);
-        }
+        // Navigate to login page after registration
+        this.router.navigate(['/login']);
       },
-      error: () => {
-        this.errorMessage = 'Registration failed. Email may already be in use.';
+      error: (err) => {
+        this.errorMessage = err.error || 'Registration failed. Email may already be in use.';
       }
     });
   }

@@ -1,0 +1,84 @@
+<div class="font-inter">
+  <h2 class="text-4xl font-bold mb-2">Manage Admins</h2>
+  <div class="p-4 rounded-lg shadow-lg">
+
+    <!-- Add Admin Button -->
+    <div class="flex justify-end mb-4">
+      <button
+        class="cursor-pointer px-16 py-3 text-sm font-bold text-gray-800 rounded-full shadow-sm bg-[#cef3ef] hover:bg-[#97e9e2] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#68d9d0] transition-colors duration-300"
+        (click)="openAddDialog()">
+        ADD ADMIN
+      </button>
+    </div>
+
+    <!-- Error Message -->
+    <p *ngIf="error" class="text-red-500">{{ error }}</p>
+
+    <!-- Admins Table -->
+    <table class="min-w-full rounded-lg">
+      <thead>
+        <tr class="text-sm font-bold text-gray-800">
+          <th class="px-4 py-2 text-left">ID</th>
+          <th class="px-4 py-2 text-left">FULL NAME</th>
+          <th class="px-4 py-2 text-left">EMAIL</th>
+          <th class="px-4 py-2 text-left">PHONE</th>
+          <th class="px-4 py-2 text-left">REGISTERED ON</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let admin of users" class="text-base font-normal text-gray-800">
+          <td class="px-4 py-2">{{ admin.id }}</td>
+          <td class="px-4 py-2">{{ admin.name }}</td>
+          <td class="px-4 py-2">{{ admin.email }}</td>
+          <td class="px-4 py-2">{{ admin.phone }}</td>
+          <td class="px-4 py-2">{{ admin.created_at }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Add Admin Dialog -->
+<div *ngIf="showDialog" class="fixed inset-0 bg-black/75 flex items-center justify-center z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+    <h3 class="text-xl font-bold mb-4">Add Admin</h3>
+
+    <!-- Full Name -->
+    <input [(ngModel)]="newAdmin.name" placeholder="Full Name" class="w-full border p-2 rounded mb-3" />
+    <p *ngIf="!newAdmin.name?.trim()" class="text-red-500 text-sm mb-2">Name is required</p>
+
+    <!-- Email -->
+    <input [(ngModel)]="newAdmin.email" type="email" placeholder="Email" class="w-full border p-2 rounded mb-3" />
+    <p *ngIf="!newAdmin.email?.trim()" class="text-red-500 text-sm mb-2">Email is required</p>
+
+    <!-- Phone -->
+    <input [(ngModel)]="newAdmin.phone" placeholder="Phone Number" class="w-full border p-2 rounded mb-3" />
+
+    <!-- <label class="block mb-2">Password</label> -->
+    <div class="relative">
+      <input [(ngModel)]="newAdmin.password" [type]="showPassword ? 'text' : 'password'" placeholder="Password"
+        class="w-full border p-2 rounded pr-10" />
+
+      <!-- Eye icon button -->
+      <button type="button" (click)="togglePassword()"
+        class="absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-600">
+        <span class="material-symbols-outlined">
+          {{ showPassword ? 'visibility_off' : 'visibility' }}
+        </span>
+      </button>
+    </div>
+
+    <!-- Dialog Actions -->
+    <div class="flex justify-end space-x-2 mt-2">
+      <button class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500" (click)="closeDialog()">Cancel</button>
+      <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
+        (click)="saveAdmin()" [disabled]="!newAdmin.name.trim() || !newAdmin.email.trim()">Add</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Notification -->
+<div *ngIf="showToast"
+  class="fixed bottom-6 right-6 bg-gray-900 text-white px-4 py-3 rounded-lg shadow-lg animate-fade-in-out">
+  {{ toastMessage }}
+</div>

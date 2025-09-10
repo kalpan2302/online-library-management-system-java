@@ -9,11 +9,22 @@
       @case ('users') {
       <app-users-management></app-users-management>
       }
+      @case ('admins') {
+      <app-admins-management></app-admins-management>
+      }
       @case ('books') {
       <app-admin-books-management></app-admin-books-management>
       }
       
-      <!-- Example for a section not yet a separate component like above 2 sections-->
+      @case ('authors') {
+      <app-authors-management></app-authors-management>
+      }
+      @case ('categories') {
+      <app-category-management></app-category-management>
+      }
+      @case ('publications') {
+      <app-publication-management></app-publication-management>
+      }
       @case ('issueBook') {
       <p class="text-gray-600">Issued Book section coming soon!</p>
       }
@@ -22,12 +33,6 @@
       }
       @case ('issueHistory') {
       <p class="text-gray-600">Issue History section coming soon!</p>
-      }
-      @case ('authors') {
-      <p class="text-gray-600">Authors Management section coming soon!</p>
-      }
-      @case ('categories') {
-      <p class="text-gray-600">Categories Management section coming soon!</p>
       }
       @default {
       <div class="p-4 bg-white rounded-lg shadow-md">

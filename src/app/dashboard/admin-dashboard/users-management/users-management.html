@@ -11,6 +11,7 @@
           <th class="px-4 py-2 text-left">FULL NAME</th>
           <th class="px-4 py-2 text-left">EMAIL</th>
           <th class="px-4 py-2 text-left">PHONE NUMBER</th>
+          <th class="px-4 py-2 text-left">REGISTERED ON</th>
         </tr>
       </thead>
       <tbody>
@@ -18,7 +19,8 @@
           <td class="px-4 py-2">{{ user.id }}</td>
           <td class="px-4 py-2">{{ user.name }}</td>
           <td class="px-4 py-2">{{ user.email }}</td>
-          <td class="px-4 py-2">{{ user.contact }}</td>
+          <td class="px-4 py-2">{{ user.phone }}</td>
+          <td class="px-4 py-2">{{ user.created_at }}</td>
         </tr>
       </tbody>
     </table>
